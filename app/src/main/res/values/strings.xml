@@ -3,4 +3,11 @@
 
     <string name="car_management_title">Управляти списоком машин</string>
     <string name="home_screen_topbar_title">AutoServiceCrm</string>
+
+    <string name="create_car_title">Добавити новий автомобіль</string>
+    <string name="create_car_subtitle">Опишіть новий автомобіль та вкажіть id власника</string>
+    <string name="car_brand_hint"> Марка авто</string>
+    <string name="car_model_hint">Модель авто</string>
+
+    <string name="create_car">Підтвердити</string>
 </resources>

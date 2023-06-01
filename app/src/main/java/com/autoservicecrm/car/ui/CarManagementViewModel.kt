@@ -2,11 +2,18 @@ package com.autoservicecrm.car.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.autoservicecrm.R
 import com.autoservicecrm.car.data.CarRepository
 import com.autoservicecrm.car.ui.models.CarScreenStateUiModel
+import com.autoservicecrm.car.ui.models.Event
+import com.autoservicecrm.car.ui.views.Field
+import com.autoservicecrm.car.ui.views.TextFieldsDialogUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,6 +25,10 @@ class CarManagementViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(CarScreenStateUiModel.getLoadingState())
     val uiState = _uiState.asStateFlow()
 
+    private val _eventChannel = Channel<Event>(Channel.BUFFERED)
+    val eventsFlow: Flow<Event>
+        get() = _eventChannel.receiveAsFlow()
+
     init {
         viewModelScope.launch {
             val cars = carRepository.getCars()
@@ -28,5 +39,28 @@ class CarManagementViewModel @Inject constructor(
             }
             _uiState.emit(state)
         }
+    }
+
+    fun getNewCarFields(): TextFieldsDialogUiModel {
+        return TextFieldsDialogUiModel(
+            R.string.create_car_title,
+            R.string.create_car_subtitle,
+            listOf(
+                Field(R.string.car_brand_hint, CAR_BRAND),
+                Field(R.string.car_model_hint, CAR_MODEL),
+            )
+        )
+    }
+
+    fun addNewCar(map: Map<String, String>) {
+        //TODO
+        viewModelScope.launch {
+            _eventChannel.send(Event.Error)
+        }
+    }
+
+    companion object {
+        const val CAR_BRAND = "CAR_NAME"
+        const val CAR_MODEL = "CAR_MODEL"
     }
 }
