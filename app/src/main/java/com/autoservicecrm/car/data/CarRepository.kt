@@ -17,7 +17,7 @@ class CarRepository @Inject constructor(
 ) {
 
     suspend fun getCars(): List<Car>? {
-        return listOf(
+        /*return listOf(
             Car(
                 1,
                 "Honda",
@@ -72,7 +72,7 @@ class CarRepository @Inject constructor(
                 "Accord",
                 Customer(1, "Rodion", "Gramushniak", "Olexsandrovich", "+38093135013")
             ),
-        )
+        )*/
         return try {
             client.get<List<Car>>(url = Url(ApiRoutes.CARS))
         } catch (ex: RedirectResponseException) {

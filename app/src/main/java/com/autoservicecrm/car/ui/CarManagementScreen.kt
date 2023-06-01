@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.autoservicecrm.car.ui.views.CarsLazyListView
+import com.autoservicecrm.shared.ui.composable.ErrorView
 import com.autoservicecrm.shared.ui.composable.TopBar
 import com.autoservicecrm.shared.ui.theme.White
 
@@ -65,9 +66,12 @@ fun CarManagementScreen(
                         CarsLazyListView(uiState.cars!!, isScrollingUp)
                     }
 
+                    uiState.isError -> {
+                        ErrorView()
+                    }
+
                     else -> {}
                 }
-
             }
         }
     }

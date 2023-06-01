@@ -20,9 +20,13 @@ class CarManagementViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _uiState.emit(
-                CarScreenStateUiModel(cars = carRepository.getCars())
-            )
+            val cars = carRepository.getCars()
+            val state = cars?.let {
+                CarScreenStateUiModel(cars = it)
+            } ?: run {
+                CarScreenStateUiModel.getErrorState()
+            }
+            _uiState.emit(state)
         }
     }
 }
