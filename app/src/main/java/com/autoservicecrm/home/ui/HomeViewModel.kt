@@ -18,13 +18,14 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     init {
         viewModelScope.launch {
-           _uiState.emit(HomeUiModel(isLoading = false, getFeaturesUiModels()))
+            _uiState.emit(HomeUiModel(isLoading = false, getFeaturesUiModels()))
         }
     }
 
     private fun getFeaturesUiModels(): List<FeatureUiModel> {
         return listOf(
-            FeatureUiModel(R.string.car_management_title, Screen.CarManagement)
+            FeatureUiModel(R.string.car_management_title, Screen.CarManagement),
+            FeatureUiModel(R.string.master_management_title, Screen.MasterManagement)
         )
     }
 }

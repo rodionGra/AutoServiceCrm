@@ -71,14 +71,14 @@ fun TextFieldsDialog(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = stringResource(R.string.create_car_title),
+                    text = stringResource(textFieldsDialogUiModel.title),
                     style = MaterialTheme.typography.h6
                 )
                 Icon(Icons.Filled.Close, contentDescription = null)
             }
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             Text(
-                text = "Опишіть новий автомобіль та вкажіть id власника",
+                text = stringResource(textFieldsDialogUiModel.subtitle),
                 style = MaterialTheme.typography.body2
             )
             LazyColumn {
@@ -99,7 +99,7 @@ fun TextFieldsDialog(
             ) {
                 Text(
                     modifier = Modifier.padding(8.dp),
-                    text = stringResource(R.string.create_car),
+                    text = stringResource(R.string.confirm),
                     color = MaterialTheme.colors.onPrimary,
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight.Bold
@@ -145,7 +145,7 @@ fun TextFieldsDialogPreview() {
     TextFieldsDialog(
         textFieldsDialogUiModel = TextFieldsDialogUiModel(
             R.string.create_car_title,
-            R.string.create_car,
+            R.string.confirm,
             listOf(
                 Field(R.string.car_model_hint, "car_model")
             )

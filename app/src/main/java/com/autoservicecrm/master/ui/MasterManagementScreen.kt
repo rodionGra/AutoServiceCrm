@@ -1,4 +1,4 @@
-package com.autoservicecrm.car.ui
+package com.autoservicecrm.master.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,8 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.autoservicecrm.car.ui.views.CarsLazyListView
 import com.autoservicecrm.car.ui.views.TextFieldsDialog
+import com.autoservicecrm.master.ui.views.MastersLazyListView
 import com.autoservicecrm.shared.ui.Event
 import com.autoservicecrm.shared.ui.composable.ErrorView
 import com.autoservicecrm.shared.ui.composable.TopBar
@@ -38,8 +38,8 @@ import com.autoservicecrm.shared.ui.theme.RedErrorLight
 import com.autoservicecrm.shared.ui.theme.White
 
 @Composable
-fun CarManagementScreen(
-    viewModel: CarManagementViewModel
+fun MasterManagementScreen(
+    viewModel: MasterManagementViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -119,8 +119,8 @@ fun CarManagementScreen(
                         CircularProgressIndicator(Modifier.align(Alignment.Center))
                     }
 
-                    uiState.cars.isNullOrEmpty().not() -> {
-                        CarsLazyListView(uiState.cars!!, isScrollingUp)
+                    uiState.masters.isNullOrEmpty().not() -> {
+                        MastersLazyListView(uiState.masters!!, isScrollingUp)
                     }
 
                     uiState.isError -> {
@@ -139,9 +139,9 @@ fun CarManagementScreen(
                         ),
                     ) {
                         TextFieldsDialog(
-                            textFieldsDialogUiModel = viewModel.getNewCarFields()
+                            textFieldsDialogUiModel = viewModel.getNewMasterFields()
                         ) {
-                            viewModel.addNewCar(it)
+                            viewModel.addNewMaster(it)
                             showDialog.value = false
                         }
                     }
@@ -153,6 +153,6 @@ fun CarManagementScreen(
 
 @Preview
 @Composable
-private fun CarManagementScreenPreview() {
-    CarManagementScreen(hiltViewModel())
+private fun MasterManagementScreenPreview() {
+    MasterManagementScreen(hiltViewModel())
 }

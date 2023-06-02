@@ -8,7 +8,14 @@
     <string name="create_car_subtitle">Опишіть новий автомобіль та вкажіть id власника</string>
     <string name="car_brand_hint"> Марка авто</string>
     <string name="car_model_hint">Модель авто</string>
-
-    <string name="create_car">Підтвердити</string>
     <string name="customer_id_hint">Id власника</string>
+
+    <string name="create_master_title">Добавити майстра</string>
+    <string name="create_master_subtitle">Опишіть майстра</string>
+    <string name="master_name_hint">Імʼя майстра</string>
+    <string name="master_surname_hint">Прізвище майстра</string>
+    <string name="master_phone_hint">Номер телефону майстра</string>
+
+    <string name="confirm">Підтвердити</string>
+    <string name="master_management_title">Управляти списком майстрів</string>
 </resources>

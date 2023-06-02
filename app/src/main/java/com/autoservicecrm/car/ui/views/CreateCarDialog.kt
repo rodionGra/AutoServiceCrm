@@ -39,7 +39,6 @@ fun CreateCarDialog() {
     val textField1Value = remember { mutableStateOf(TextFieldValue()) }
     val textField2Value = remember { mutableStateOf(TextFieldValue()) }
     val textField3Value = remember { mutableStateOf(TextFieldValue()) }
-    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -114,7 +113,7 @@ fun CreateCarDialog() {
             ) {
                 Text(
                     modifier = Modifier.padding(8.dp),
-                    text = stringResource(R.string.create_car),
+                    text = stringResource(R.string.confirm),
                     color = MaterialTheme.colors.onPrimary,
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight.Bold

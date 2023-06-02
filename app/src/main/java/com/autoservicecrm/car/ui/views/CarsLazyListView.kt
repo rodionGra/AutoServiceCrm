@@ -55,9 +55,6 @@ fun CarsLazyListView(
         state = listState
     ) {
         items(cars) {
-            it.brand
-            it.id
-            it.model
             Card(
                 Modifier
                     .fillMaxWidth()

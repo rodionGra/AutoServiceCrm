@@ -1,4 +1,4 @@
-package com.autoservicecrm.car.ui.models
+package com.autoservicecrm.shared.ui
 
 sealed class Event(
     open val name: String

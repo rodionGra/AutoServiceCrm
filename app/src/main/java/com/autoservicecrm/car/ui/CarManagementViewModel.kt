@@ -6,9 +6,9 @@ import com.autoservicecrm.R
 import com.autoservicecrm.car.data.CarRepository
 import com.autoservicecrm.car.data.model.PostCarDto
 import com.autoservicecrm.car.ui.models.CarScreenStateUiModel
-import com.autoservicecrm.car.ui.models.Event
 import com.autoservicecrm.car.ui.views.Field
 import com.autoservicecrm.car.ui.views.TextFieldsDialogUiModel
+import com.autoservicecrm.shared.ui.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

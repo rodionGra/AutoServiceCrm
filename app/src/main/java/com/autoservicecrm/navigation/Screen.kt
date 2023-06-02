@@ -5,6 +5,7 @@ sealed class Screen(
 ) {
     object HomeScreen : Screen("homeScreen")
     object CarManagement : Screen("CarManagement")
+    object MasterManagement : Screen("MasterManagement")
 
     @Deprecated("all args should be not null")
     fun withArgs(vararg args: String): String {
