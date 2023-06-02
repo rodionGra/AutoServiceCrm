@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.autoservicecrm.master.data.model.Master
+import com.autoservicecrm.shared.ui.composable.isScrollingUp
 
 @Composable
 fun MastersLazyListView(
@@ -33,7 +34,7 @@ fun MastersLazyListView(
 ) {
     val listState = rememberLazyGridState()
 
-    isScrollingUp.value = true //todo
+    isScrollingUp.value = listState.isScrollingUp()
 
     LazyVerticalGrid(
         modifier = modifier
