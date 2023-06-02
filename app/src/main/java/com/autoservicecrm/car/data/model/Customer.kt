@@ -3,9 +3,10 @@ package com.autoservicecrm.car.data.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Car(
+data class Customer(
     val id: Int,
-    val brand: String,
-    val model: String,
-    val customer: Customer
+    val name: String,
+    val lastname: String,
+    val surname: String,
+    val phone: String
 )

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.autoservicecrm.R
 import com.autoservicecrm.car.data.CarRepository
+import com.autoservicecrm.car.data.model.PostCarDto
 import com.autoservicecrm.car.ui.models.CarScreenStateUiModel
 import com.autoservicecrm.car.ui.models.Event
 import com.autoservicecrm.car.ui.views.Field
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CarManagementViewModel @Inject constructor(
-    carRepository: CarRepository
+    private val carRepository: CarRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CarScreenStateUiModel.getLoadingState())
@@ -30,6 +31,10 @@ class CarManagementViewModel @Inject constructor(
         get() = _eventChannel.receiveAsFlow()
 
     init {
+        updateCarList()
+    }
+
+    private fun updateCarList() {
         viewModelScope.launch {
             val cars = carRepository.getCars()
             val state = cars?.let {
@@ -48,19 +53,32 @@ class CarManagementViewModel @Inject constructor(
             listOf(
                 Field(R.string.car_brand_hint, CAR_BRAND),
                 Field(R.string.car_model_hint, CAR_MODEL),
+                Field(R.string.customer_id_hint, CUSTOMER_ID),
             )
         )
     }
 
     fun addNewCar(map: Map<String, String>) {
-        //TODO
         viewModelScope.launch {
-            _eventChannel.send(Event.Error)
+            val result = carRepository.postNewCar(
+                PostCarDto(
+                    brand = map[CAR_BRAND] ?: "",
+                    model = map[CAR_MODEL] ?: "",
+                    customerId = map[CUSTOMER_ID]?.toIntOrNull() ?: -1
+                )
+            )
+            result?.let {
+                _eventChannel.send(Event.Success)
+                updateCarList()
+            } ?: run {
+                _eventChannel.send(Event.Error)
+            }
         }
     }
 
     companion object {
         const val CAR_BRAND = "CAR_NAME"
         const val CAR_MODEL = "CAR_MODEL"
+        const val CUSTOMER_ID = "CUSTOMER_ID"
     }
 }
