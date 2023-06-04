@@ -18,4 +18,15 @@
 
     <string name="confirm">Підтвердити</string>
     <string name="master_management_title">Управляти списком майстрів</string>
+    <string name="order_management_title">Управляти списком замовлень</string>
+    <string name="create_order_title">Створити замовлення</string>
+    <string name="create_order_subtitle">Опишіть замовлення</string>
+    <string name="order_description_hint">Опис замовлення</string>
+    <string name="order_price_hint">Ціна замовлення</string>
+    <string name="order_tuning_box_id_hint">Вкажіть номер боксу</string>
+
+    <string name="price">Ціна: %s</string>
+    <string name="tuning_box_id">Номер тюнінг боксу: %s</string>
+    <string name="car_id">Id автомобіля\n</string>
+    <string name="master_id_hint">Вкажіть ID майстра</string>
 </resources>

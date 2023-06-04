@@ -30,7 +30,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.autoservicecrm.car.ui.views.CarsLazyListView
-import com.autoservicecrm.car.ui.views.TextFieldsDialog
+import com.autoservicecrm.shared.ui.composable.dialog.TextFieldsDialog
 import com.autoservicecrm.shared.ui.Event
 import com.autoservicecrm.shared.ui.composable.ErrorView
 import com.autoservicecrm.shared.ui.composable.TopBar

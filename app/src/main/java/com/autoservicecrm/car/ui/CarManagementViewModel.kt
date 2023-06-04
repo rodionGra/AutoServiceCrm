@@ -6,9 +6,9 @@ import com.autoservicecrm.R
 import com.autoservicecrm.car.data.CarRepository
 import com.autoservicecrm.car.data.model.PostCarDto
 import com.autoservicecrm.car.ui.models.CarScreenStateUiModel
-import com.autoservicecrm.car.ui.views.Field
-import com.autoservicecrm.car.ui.views.TextFieldsDialogUiModel
 import com.autoservicecrm.shared.ui.Event
+import com.autoservicecrm.shared.ui.composable.dialog.models.Field
+import com.autoservicecrm.shared.ui.composable.dialog.models.TextFieldsDialogUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -51,9 +51,9 @@ class CarManagementViewModel @Inject constructor(
             R.string.create_car_title,
             R.string.create_car_subtitle,
             listOf(
-                Field(R.string.car_brand_hint, CAR_BRAND),
-                Field(R.string.car_model_hint, CAR_MODEL),
-                Field(R.string.customer_id_hint, CUSTOMER_ID),
+                Field.TextInput(R.string.car_brand_hint, CAR_BRAND),
+                Field.TextInput(R.string.car_model_hint, CAR_MODEL),
+                Field.TextInput(R.string.customer_id_hint, CUSTOMER_ID),
             )
         )
     }

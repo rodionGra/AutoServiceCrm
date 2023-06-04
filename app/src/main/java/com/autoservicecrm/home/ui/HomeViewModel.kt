@@ -25,7 +25,8 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private fun getFeaturesUiModels(): List<FeatureUiModel> {
         return listOf(
             FeatureUiModel(R.string.car_management_title, Screen.CarManagement),
-            FeatureUiModel(R.string.master_management_title, Screen.MasterManagement)
+            FeatureUiModel(R.string.master_management_title, Screen.MasterManagement),
+            FeatureUiModel(R.string.order_management_title, Screen.OrderManagement)
         )
     }
 }

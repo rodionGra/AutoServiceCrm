@@ -3,12 +3,12 @@ package com.autoservicecrm.master.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.autoservicecrm.R
-import com.autoservicecrm.car.ui.views.Field
-import com.autoservicecrm.car.ui.views.TextFieldsDialogUiModel
 import com.autoservicecrm.master.data.MasterRepository
 import com.autoservicecrm.master.data.model.PostMasterDto
 import com.autoservicecrm.master.ui.models.MasterScreenStateUiModel
 import com.autoservicecrm.shared.ui.Event
+import com.autoservicecrm.shared.ui.composable.dialog.models.Field
+import com.autoservicecrm.shared.ui.composable.dialog.models.TextFieldsDialogUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -51,9 +51,9 @@ class MasterManagementViewModel @Inject constructor(
             R.string.create_master_title,
             R.string.create_master_subtitle,
             listOf(
-                Field(R.string.master_name_hint, MASTER_NAME),
-                Field(R.string.master_surname_hint, MASTER_SURNAME),
-                Field(R.string.master_phone_hint, MASTER_PHONE),
+                Field.TextInput(R.string.master_name_hint, MASTER_NAME),
+                Field.TextInput(R.string.master_surname_hint, MASTER_SURNAME),
+                Field.TextInput(R.string.master_phone_hint, MASTER_PHONE),
             )
         )
     }

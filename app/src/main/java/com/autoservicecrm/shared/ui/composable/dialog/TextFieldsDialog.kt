@@ -1,6 +1,7 @@
-package com.autoservicecrm.car.ui.views
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
-import androidx.annotation.StringRes
+package com.autoservicecrm.shared.ui.composable.dialog
+
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,12 +20,11 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.autoservicecrm.R
+import com.autoservicecrm.shared.ui.composable.dialog.models.Field
+import com.autoservicecrm.shared.ui.composable.dialog.models.TextFieldsDialogUiModel
 import com.autoservicecrm.shared.ui.theme.BlueLight
 import com.autoservicecrm.shared.ui.theme.White
 
@@ -47,7 +49,7 @@ fun TextFieldsDialog(
         mutableStateOf(mapOf<String, String>())
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(textFieldsDialogUiModel) {
         mapTextFields.value = textFieldsDialogUiModel.fields.associate {
             it.key to ""
         }
@@ -83,7 +85,15 @@ fun TextFieldsDialog(
             )
             LazyColumn {
                 items(textFieldsDialogUiModel.fields) {
-                    CustomTextField(it, mapTextFields)
+                    when (it) {
+                        is Field.TextInput -> {
+                            CustomTextField(it, mapTextFields)
+                        }
+
+                        is Field.DateInput -> {
+                            CustomDataPicker(it, mapTextFields)
+                        }
+                    }
                 }
             }
             Button(
@@ -109,36 +119,6 @@ fun TextFieldsDialog(
     }
 }
 
-@Composable
-fun CustomTextField(
-    field: Field,
-    mapTextFields: MutableState<Map<String, String>>
-) {
-    val map = mapTextFields.value.toMutableMap()
-    Spacer(modifier = Modifier.padding(vertical = 8.dp))
-    TextField(
-        value = mapTextFields.value[field.key] ?: return,
-        onValueChange = {
-            mapTextFields.value = map.apply {
-                put(field.key, it)
-            }
-        },
-        label = { Text(stringResource(field.hint)) },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
-
-data class TextFieldsDialogUiModel(
-    @StringRes val title: Int,
-    @StringRes val subtitle: Int,
-    val fields: List<Field>
-)
-
-data class Field(
-    val hint: Int,
-    val key: String
-)
-
 @Preview
 @Composable
 fun TextFieldsDialogPreview() {
@@ -147,7 +127,8 @@ fun TextFieldsDialogPreview() {
             R.string.create_car_title,
             R.string.confirm,
             listOf(
-                Field(R.string.car_model_hint, "car_model")
+                Field.TextInput(R.string.car_model_hint, "car_model"),
+                Field.DateInput("DateInput"),
             )
         ), onSubmitClick = {}
     )

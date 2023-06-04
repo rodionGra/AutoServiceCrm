@@ -1,4 +1,4 @@
-package com.autoservicecrm.master.ui
+package com.autoservicecrm.order.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +30,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.autoservicecrm.shared.ui.composable.dialog.TextFieldsDialog
-import com.autoservicecrm.master.ui.views.MastersLazyListView
+import com.autoservicecrm.order.ui.views.OrdersLazyListView
 import com.autoservicecrm.shared.ui.Event
 import com.autoservicecrm.shared.ui.composable.ErrorView
 import com.autoservicecrm.shared.ui.composable.TopBar
@@ -38,8 +38,8 @@ import com.autoservicecrm.shared.ui.theme.RedErrorLight
 import com.autoservicecrm.shared.ui.theme.White
 
 @Composable
-fun MasterManagementScreen(
-    viewModel: MasterManagementViewModel
+fun OrderManagementScreen(
+    viewModel: OrderManagementViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -119,8 +119,8 @@ fun MasterManagementScreen(
                         CircularProgressIndicator(Modifier.align(Alignment.Center))
                     }
 
-                    uiState.masters.isNullOrEmpty().not() -> {
-                        MastersLazyListView(uiState.masters!!, isScrollingUp)
+                    uiState.orders.isNullOrEmpty().not() -> {
+                        OrdersLazyListView(uiState.orders!!, isScrollingUp)
                     }
 
                     uiState.isError -> {
@@ -139,9 +139,9 @@ fun MasterManagementScreen(
                         ),
                     ) {
                         TextFieldsDialog(
-                            textFieldsDialogUiModel = viewModel.getNewMasterFields()
+                            textFieldsDialogUiModel = viewModel.getNewOrderFields()
                         ) {
-                            viewModel.addNewMaster(it)
+                            viewModel.addNewOrder(it)
                             showDialog.value = false
                         }
                     }
@@ -153,6 +153,6 @@ fun MasterManagementScreen(
 
 @Preview
 @Composable
-private fun MasterManagementScreenPreview() {
-    MasterManagementScreen(hiltViewModel())
+private fun OrderManagementScreenPreview() {
+    OrderManagementScreen(hiltViewModel())
 }

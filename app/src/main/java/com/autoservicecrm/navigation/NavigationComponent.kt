@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.autoservicecrm.car.ui.CarManagementScreen
 import com.autoservicecrm.home.ui.HomeScreen
 import com.autoservicecrm.master.ui.MasterManagementScreen
+import com.autoservicecrm.order.ui.OrderManagementScreen
 
 @Composable
 fun NavigationComponent(navController: NavHostController) {
@@ -23,6 +24,9 @@ fun NavigationComponent(navController: NavHostController) {
         }
         composable(route = Screen.MasterManagement.route) {
             MasterManagementScreen(hiltViewModel())
+        }
+        composable(route = Screen.OrderManagement.route) {
+            OrderManagementScreen(hiltViewModel())
         }
     }
 }
