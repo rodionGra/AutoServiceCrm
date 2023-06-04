@@ -11,5 +11,6 @@ data class PostOrderDto(
     val masterId: Int,
     val price: Int,
     val startDate: String,
-    val tuningBoxNumber: Int
+    val tuningBoxNumber: Int,
+    val orderId: Int = 0
 )

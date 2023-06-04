@@ -11,6 +11,7 @@ object ApiRoutes {
 
     const val ORDERS = "$BASE_URL/order/getAll"
     const val POST_ORDER = "$BASE_URL/order"
+    const val DELETE_ORDER = "$BASE_URL/order/"
 
     const val CUSTOMERS = "$BASE_URL/customer/getAll"
     const val POST_CUSTOMER = "$BASE_URL/customer"

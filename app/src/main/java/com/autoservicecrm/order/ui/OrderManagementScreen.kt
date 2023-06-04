@@ -120,7 +120,7 @@ fun OrderManagementScreen(
                     }
 
                     uiState.orders.isNullOrEmpty().not() -> {
-                        OrdersLazyListView(uiState.orders!!, isScrollingUp)
+                        OrdersLazyListView(uiState.orders!!, isScrollingUp, viewModel::removeOrder)
                     }
 
                     uiState.isError -> {

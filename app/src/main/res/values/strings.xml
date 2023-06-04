@@ -27,6 +27,6 @@
 
     <string name="price">Ціна: %s</string>
     <string name="tuning_box_id">Номер тюнінг боксу: %s</string>
-    <string name="car_id">Id автомобіля\n</string>
+    <string name="car_id">Id автомобіля</string>
     <string name="master_id_hint">Вкажіть ID майстра</string>
 </resources>

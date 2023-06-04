@@ -1,5 +1,13 @@
+@file:OptIn(
+    ExperimentalMaterialApi::class, ExperimentalFoundationApi::class,
+    ExperimentalMaterialApi::class, ExperimentalMaterialApi::class
+)
+
 package com.autoservicecrm.order.ui.views
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,14 +24,28 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissState
+import androidx.compose.material.DismissValue
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +62,7 @@ import java.time.format.DateTimeFormatter
 fun OrdersLazyListView(
     orders: List<Order>,
     isScrollingUp: MutableState<Boolean>,
+    removeItem: (Order) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val listState = rememberLazyListState()
@@ -52,9 +75,72 @@ fun OrdersLazyListView(
             .background(MaterialTheme.colors.background),
         state = listState
     ) {
-        items(orders) {
-            ContentInfoView(order = it)
+        items(orders, key = Order::id) { order ->
+            val currentItem by rememberUpdatedState(order)
+            val dismissState = rememberDismissState(
+                confirmStateChange = { dismissValue ->
+                    when (dismissValue) {
+                        DismissValue.DismissedToStart -> {
+                            removeItem(currentItem)
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+            )
+            SwipeToDismiss(
+                state = dismissState,
+                modifier = Modifier
+                    .padding(vertical = 1.dp)
+                    .animateItemPlacement(),
+                background = {
+                    dismissState.SwipeBackground()
+                },
+                dismissContent = {
+                    ContentInfoView(order = order)
+                }
+            )
         }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterialApi::class)
+private fun DismissState.SwipeBackground() {
+    val direction = this.dismissDirection ?: return
+
+    val color by animateColorAsState(
+        when (this.targetValue) {
+            DismissValue.Default -> Color.LightGray
+            DismissValue.DismissedToEnd -> Color.Green
+            DismissValue.DismissedToStart -> Color.Red
+        }
+    )
+    val alignment = when (direction) {
+        DismissDirection.StartToEnd -> Alignment.CenterStart
+        DismissDirection.EndToStart -> Alignment.CenterEnd
+    }
+    val icon = when (direction) {
+        DismissDirection.StartToEnd -> Icons.Default.Done
+        DismissDirection.EndToStart -> Icons.Default.Delete
+    }
+    val scale by animateFloatAsState(
+        if (this.targetValue == DismissValue.Default) 0.75f else 1f
+    )
+
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(color)
+            .padding(horizontal = 20.dp),
+        contentAlignment = alignment
+    ) {
+        Icon(
+            icon,
+            contentDescription = "Localized description",
+            modifier = Modifier.scale(scale)
+        )
     }
 }
 
@@ -128,11 +214,13 @@ private fun OrdersLazyListViewPreview() {
                 description = "Long Desciption Puploenko",
                 price = 1000.00,
                 tuningBox = TuningBox(3),
-                isDone = true
+                isDone = true,
+                id = 1
             )
         ),
         isScrollingUp = remember {
             mutableStateOf(true)
-        }
+        },
+        removeItem = {}
     )
 }

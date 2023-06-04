@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.autoservicecrm.R
 import com.autoservicecrm.order.data.OrderRepository
+import com.autoservicecrm.order.data.model.Order
 import com.autoservicecrm.order.data.model.PostOrderDto
 import com.autoservicecrm.order.ui.models.OrderScreenStateUiModel
 import com.autoservicecrm.shared.ui.Event
@@ -96,6 +97,18 @@ class OrderManagementViewModel @Inject constructor(
             } ?: run {
                 _eventChannel.send(Event.Error)
             }
+        }
+    }
+
+    fun removeOrder(order: Order) {
+        viewModelScope.launch {
+            val result = orderRepository.deleteOrder(order.id)
+            result?.let {
+                _eventChannel.send(Event.Success)
+            } ?: run {
+                _eventChannel.send(Event.Error)
+            }
+            updateOrderList()
         }
     }
 

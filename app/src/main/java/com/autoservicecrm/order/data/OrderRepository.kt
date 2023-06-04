@@ -4,6 +4,7 @@ import com.autoservicecrm.order.data.model.Order
 import com.autoservicecrm.order.data.model.PostOrderDto
 import com.autoservicecrm.shared.data.ApiRoutes
 import io.ktor.client.HttpClient
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.http.Url
@@ -26,6 +27,14 @@ class OrderRepository @Inject constructor(
             client.post(url = Url(ApiRoutes.POST_ORDER)) {
                 this.body = postOrderDto
             }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    suspend fun deleteOrder(id: Int): Unit? {
+        return try {
+            client.delete(url = Url(ApiRoutes.DELETE_ORDER + id))
         } catch (_: Exception) {
             null
         }
