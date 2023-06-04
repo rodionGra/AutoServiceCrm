@@ -128,7 +128,7 @@ private fun OrdersLazyListViewPreview() {
                 description = "Long Desciption Puploenko",
                 price = 1000.00,
                 tuningBox = TuningBox(3),
-                done = true
+                isDone = true
             )
         ),
         isScrollingUp = remember {

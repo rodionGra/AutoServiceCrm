@@ -9,7 +9,7 @@ data class Order(
     val description: String,
     val price: Double,
     val tuningBox: TuningBox,
-    val done: Boolean
+    val isDone: Boolean
 )
 
 @Serializable
